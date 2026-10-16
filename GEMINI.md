@@ -1,8 +1,8 @@
 # Global Agent Rules & Guidelines (Bilingual: AR / EN)
 
-## Slash Command: `/usage` (Detailed Task & Realistic Usage Reporting)
+## Slash Commands: `/usage-report` (Primary) or `/usage` (Alias)
 
-Whenever the user inputs `/usage` or requests a detailed token/context breakdown for a task:
+Whenever the user inputs `/usage-report` (or `/usage`), with optional `en` flag (e.g. `/usage-report en` or `/usage en`), or requests a detailed token/context breakdown for a task:
 The agent MUST generate the standardized **Usage & Token Consumption Report** (`usage-report`) in the user's preferred language (Arabic if prompting in Arabic, English otherwise) covering:
 
 1. **Token Consumption Breakdown:**

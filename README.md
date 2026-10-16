@@ -17,10 +17,10 @@ Both skills automatically detect your conversation language:
 
 ## 📦 Included Skills / المهارات المتضمنة
 
-| Skill / المهارة | Slash Command | Description / الوظيفة |
+| Skill / المهارة | Slash Command (الأمر المباشر) | Description / الوظيفة |
 | :--- | :--- | :--- |
-| **`usage-report`** | `/usage`<br>`/usage en` | **Detailed Task & Swarm Breakdown:**<br>• Token partitioning (Main Context vs. Parallel Swarm).<br>• **Realistic Network Traffic** (Cumulative wire context streaming + Multimodal assets + Package downloads).<br>• **Net Active Time** (excluding breaks/idle).<br>• Deliverables & Test Pass Rate. |
-| **`session-summary`** | `/session-summary`<br>`/brief-usage` | **Concise Full-Session Overview:**<br>• **Calendar Span vs. Active Workdays** (e.g. Chat open for 50 days, but only 8 active days).<br>• Cumulative session tokens across active turns.<br>• Realistic total data transfer (MB / GB).<br>• Key deliverables & Brain disk footprint. |
+| **`usage-report`** | `/usage-report`<br>`/usage-report en`<br>*(Alias: `/usage`)* | **Detailed Task & Swarm Breakdown:**<br>• Token partitioning (Main Context vs. Parallel Swarm).<br>• **Realistic Network Traffic** (Cumulative wire context streaming + Multimodal assets + Package downloads).<br>• **Net Active Time** (excluding breaks/idle).<br>• Deliverables & Test Pass Rate. |
+| **`session-summary`** | `/session-summary`<br>`/session-summary en`<br>*(Alias: `/brief-usage`)* | **Concise Full-Session Overview:**<br>• **Calendar Span vs. Active Workdays** (e.g. Chat open for 50 days, but only 8 active days).<br>• Cumulative session tokens across active turns.<br>• Realistic total data transfer (MB / GB).<br>• Key deliverables & Brain disk footprint. |
 
 ---
 
@@ -71,7 +71,8 @@ bash install.sh
 ### In English:
 Type in your chat:
 ```text
-/usage
+/usage-report en
+# Or short alias: /usage en
 ```
 *Output:*
 ```markdown
@@ -94,7 +95,8 @@ Type in your chat:
 ### بالعربية:
 اكتب في الشات:
 ```text
-/usage
+/usage-report
+# أو الاختصار: /usage
 ```
 *المخرجات:*
 ```markdown

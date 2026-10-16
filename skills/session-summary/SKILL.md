@@ -11,11 +11,17 @@ description: >-
 
 # Session Summary & Quick Realistic Usage Skill (Bilingual: AR / EN)
 
-Use this skill whenever the user types `/session-summary`, `/brief-usage`, or requests a realistic summary of the entire conversation session.
+Use this skill whenever the user invokes `/session-summary` (the primary skill slash command) or `/brief-usage` (alias), or requests a realistic summary of the entire conversation session.
+
+## Trigger Commands
+* `/session-summary` (Primary UI Slash Command)
+* `/session-summary en` (Direct English report)
+* `/brief-usage` (Short alias)
+* `/brief-usage en` (Short alias in English)
 
 ## Language Selection
 - **Auto-Detection:** If the user's prompt or conversation is primarily Arabic, respond with the **Arabic Template**.
-- If the conversation is in English or the user specifies English (e.g., `/session-summary en`), respond with the **English Template**.
+- If the conversation is in English or the user specifies English (e.g., `/session-summary en`, `/brief-usage en`), respond with the **English Template**.
 
 ---
 

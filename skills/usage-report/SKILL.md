@@ -10,11 +10,17 @@ description: >-
 
 # Usage & Token Consumption Reporting Skill (Bilingual: AR / EN)
 
-Use this skill whenever the user types `/usage` or requests a detailed report on token consumption, internet bandwidth usage, execution timeline, and deliverable metrics.
+Use this skill whenever the user invokes `/usage-report` (the primary skill slash command) or `/usage` (alias), or requests a detailed report on token consumption, internet bandwidth usage, execution timeline, and deliverable metrics.
+
+## Trigger Commands
+* `/usage-report` (Primary UI Slash Command)
+* `/usage-report en` (Direct English report)
+* `/usage` (Short alias)
+* `/usage en` (Short alias in English)
 
 ## Language Selection
 - **Auto-Detection:** If the user's prompt or conversation is primarily Arabic, respond with the **Arabic Template**.
-- If the conversation is in English or the user specifies English (e.g., `/usage en`), respond with the **English Template**.
+- If the conversation is in English or the user specifies English (e.g., `/usage-report en`, `/usage en`), respond with the **English Template**.
 
 ---
 
