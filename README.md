@@ -111,17 +111,56 @@ Type in your chat:
 * الإجمالي الواقعي لاستهلاك باقة الإنترنت: ~36.2 ميجابايت.
 ```
 
+## 🔄 How to Update / طريقة التحديث عند نزول نسخة جديدة
+
+إذا تم نشر مهارات جديدة أو تحديثات في المستودع وتريد تنزيلها وتحديث جهازك، اتبع إحدى الطرق التالية:
+
+### 1️⃣ الطريقة الأسرع (بضغطة واحدة عبر سكربت التحديث 1-Click Update):
+إذا كنت مستنسخاً للمستودع عبر `git clone`:
+
+* **على ويندوز (Windows):**
+  افتح مجلد المستودع وشغّل سكربت التحديث:
+  ```powershell
+  powershell -ExecutionPolicy Bypass -File update.ps1
+  ```
+  *(يقوم بسحب آخر كود من GitHub تلقائياً بـ `git pull` ونسخ وتحديث كافة المهارات والقواعد في مجلد Antigravity لديك بضغطة واحدة).*
+
+* **على macOS / Linux:**
+  ```bash
+  bash update.sh
+  ```
+
 ---
 
-## 🔄 Updating / التحديث مستقبلاً
-
-To pull latest improvements and new skills:
+### 2️⃣ طريقة الـ Git العادية:
+إذا كنت تفضل تنفيذ أوامر Git خطوة بخطوة:
 ```bash
+# 1. الدخول لمجلد الريبو
+cd skills-for-antigravity
+
+# 2. جلب أحدث التعديلات
 git pull
-powershell -ExecutionPolicy Bypass -File install.ps1   # Windows
-# or
-bash install.sh                                        # macOS / Linux
+
+# 3. إعادة تشغيل سكربت التثبيت لتحديث الملفات داخل Antigravity:
+powershell -ExecutionPolicy Bypass -File install.ps1   # (Windows)
+# أو
+bash install.sh                                        # (macOS / Linux)
 ```
+
+---
+
+### 3️⃣ التحديث اليدوي (بدون Git - لمستخدمي تنزيل ZIP):
+إذا قمت بتنزيل التحديث كملف مضغوط (`Download ZIP`) من GitHub:
+1. فك ضغط ملف الـ ZIP.
+2. شغّل `install.ps1` (أو كليك يمين واضغط **Run with PowerShell**).
+3. أو يدوياً: انسخ مجلدات المهارات من `skills/*` والصقها داخل المسار:
+   * **Windows:** `C:\Users\<اسم_المستخدم>\.gemini\config\skills\`
+   * وافق على استبدال الملفات القديمة بالجديدة (**Replace files in destination**).
+
+---
+
+> 💡 **ملاحظة مهمة بعد التحديث:**  
+> Antigravity يكتشف المهارات المحدثة تلقائياً! لا تحتاج لإعادة تشغيل البرنامج بالكامل؛ فقط افتح **محادثة جديدة (New Chat - `Ctrl+N`)** وستعمل النسخة الجديدة فوراً.
 
 ---
 

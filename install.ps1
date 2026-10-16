@@ -1,10 +1,10 @@
-# Automated Installer for Antigravity Skills (Windows)
+# Automated Installer & Updater for Antigravity Skills (Windows)
 # Usage: powershell -ExecutionPolicy Bypass -File install.ps1
 
 $ErrorActionPreference = "Stop"
 
 Write-Host "====================================================" -ForegroundColor Cyan
-Write-Host "   Installing Skills for Google Antigravity (Windows)   " -ForegroundColor Cyan
+Write-Host "   Installing / Updating Skills for Antigravity     " -ForegroundColor Cyan
 Write-Host "====================================================" -ForegroundColor Cyan
 
 $geminiConfigDir = Join-Path $env:USERPROFILE ".gemini\config"
@@ -21,7 +21,7 @@ $skills = Get-ChildItem -Path $repoSkillsDir -Directory
 
 foreach ($skill in $skills) {
     $dest = Join-Path $targetSkillsDir $skill.Name
-    Write-Host "-> Installing skill: [$($skill.Name)]..." -ForegroundColor Green
+    Write-Host "-> Installing / Overwriting skill: [$($skill.Name)]..." -ForegroundColor Green
     Copy-Item -Path $skill.FullName -Destination $dest -Recurse -Force
 }
 
@@ -31,17 +31,23 @@ if (Test-Path $sourceGlobalRule) {
         Write-Host "-> Creating global rules file: $targetGlobalRule..." -ForegroundColor Green
         Copy-Item -Path $sourceGlobalRule -Destination $targetGlobalRule -Force
     } else {
-        Write-Host "-> Target GEMINI.md already exists. Checking for updates..." -ForegroundColor Yellow
+        Write-Host "-> Updating global rules in GEMINI.md..." -ForegroundColor Green
         $existingContent = Get-Content -Path $targetGlobalRule -Raw
         $newContent = Get-Content -Path $sourceGlobalRule -Raw
-        if ($existingContent -notmatch "usage-report") {
-            Write-Host "-> Appending /usage and /session-summary rules to GEMINI.md..." -ForegroundColor Green
-            Add-Content -Path $targetGlobalRule -Value "`n`n$newContent"
+        
+        # If GEMINI.md is purely for our skills, or to update the existing section
+        if ($existingContent -match "usage-report" -or $existingContent -match "Usage & Token Consumption Report") {
+            # Replace/overwrite with latest official rules
+            Copy-Item -Path $sourceGlobalRule -Destination $targetGlobalRule -Force
+            Write-Host "-> Synced latest rules into $targetGlobalRule!" -ForegroundColor Green
         } else {
-            Write-Host "-> GEMINI.md already contains usage rules. Updated!" -ForegroundColor DarkGray
+            # Append to user's custom existing rules
+            Write-Host "-> Appending usage rules to your existing GEMINI.md..." -ForegroundColor Green
+            Add-Content -Path $targetGlobalRule -Value "`n`n$newContent"
         }
     }
 }
 
-Write-Host "`n✅ Successfully installed all skills!" -ForegroundColor Cyan
-Write-Host "You can now use /usage and /session-summary in any Antigravity conversation." -ForegroundColor White
+Write-Host "`n✅ Successfully installed/updated all skills!" -ForegroundColor Cyan
+Write-Host "You can now use /usage-report and /session-summary in any Antigravity conversation." -ForegroundColor White
+Write-Host "Tip: Open a New Chat (Ctrl+N) to instantly load the updated skills." -ForegroundColor Yellow

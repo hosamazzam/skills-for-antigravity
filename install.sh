@@ -30,15 +30,16 @@ if [ -f "$SCRIPT_DIR/GEMINI.md" ]; then
         cp "$SCRIPT_DIR/GEMINI.md" "$TARGET_GLOBAL_RULE"
     else
         echo -e "\033[0;33m-> Target GEMINI.md exists. Checking for updates...\033[0m"
-        if ! grep -q "usage-report" "$TARGET_GLOBAL_RULE"; then
-            echo -e "\033[0;32m-> Appending rules to GEMINI.md...\033[0m"
+        if grep -q "usage-report" "$TARGET_GLOBAL_RULE"; then
+            echo -e "\033[0;32m-> Overwriting/updating rules in $TARGET_GLOBAL_RULE...\033[0m"
+            cp "$SCRIPT_DIR/GEMINI.md" "$TARGET_GLOBAL_RULE"
+        else
+            echo -e "\033[0;32m-> Appending rules to existing $TARGET_GLOBAL_RULE...\033[0m"
             echo -e "\n" >> "$TARGET_GLOBAL_RULE"
             cat "$SCRIPT_DIR/GEMINI.md" >> "$TARGET_GLOBAL_RULE"
-        else
-            echo -e "\033[0;90m-> GEMINI.md already contains usage rules. Updated!\033[0m"
         fi
     fi
 fi
 
-echo -e "\n\033[0;36m✅ Successfully installed all skills!\033[0m"
-echo "You can now use /usage and /session-summary in any Antigravity conversation."
+echo -e "\n\033[0;36m✅ Successfully installed / updated all skills!\033[0m"
+echo "You can now use /usage-report and /session-summary in any Antigravity conversation."
