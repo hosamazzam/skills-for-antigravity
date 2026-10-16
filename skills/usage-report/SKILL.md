@@ -2,18 +2,23 @@
 name: usage-report
 description: >-
   Generates a comprehensive token consumption, realistic internet data transfer, and task execution breakdown report
+  in either Arabic or English based on user preference.
   (Token Consumption, Real Network/Bandwidth Traffic, Execution Timeline, and Technical Deliverables).
   Trigger whenever the user types `/usage`, asks for usage statistics, token estimates, internet/data consumption,
   or requests a victory / completion report after a task or agent swarm execution.
 ---
 
-# Usage & Token Consumption Reporting Skill
+# Usage & Token Consumption Reporting Skill (Bilingual: AR / EN)
 
 Use this skill whenever the user types `/usage` or requests a detailed report on token consumption, internet bandwidth usage, execution timeline, and deliverable metrics.
 
-## Guidelines for Generating the Report
+## Language Selection
+- **Auto-Detection:** If the user's prompt or conversation is primarily Arabic, respond with the **Arabic Template**.
+- If the conversation is in English or the user specifies English (e.g., `/usage en`), respond with the **English Template**.
 
-When invoked with `/usage` or after a completed task upon request, analyze the current conversation (and any subagents/tasks executed in this session) and produce a structured report using this standard template:
+---
+
+## 🇸🇦 1. Arabic Template (النموذج العربي)
 
 ```markdown
 ### 📊 1. تقدير استهلاك التوكنز (Token Consumption):
@@ -58,11 +63,54 @@ When invoked with `/usage` or after a completed task upon request, analyze the c
 * **حزم الاختبارات وفحص الأنواع:** [حالة الـ TypeScript / Unit Tests ونسبة النجاح]
 ```
 
-## Realistic Network Calculation Heuristics:
-1. **Never quote the single-pass raw text figure alone.** Explain both the raw text footprint and the cumulative wire reality.
-2. **Formula for Cumulative Wire Traffic:**
-   $$\text{Network Wire Traffic} \approx \text{Turn/Step Count} \times \text{Average Step Context Size (KB)} + \text{Multimodal Transfer} + \text{Downloads}$$
-3. **Multimodal Factor:**
-   - Generated images (`generate_image`) and high-res uploaded media: ~2 MB - 10 MB per image transferred over API/wire.
-4. **Inspecting Disk When Relevant:**
-   - You may run a quick PowerShell check on `$brainDir` or workspace to check real size of media and assets.
+---
+
+## 🇬🇧 2. English Template
+
+```markdown
+### 📊 1. Token Consumption Breakdown:
+
+* **Main Context:**
+  * Prompts, plan drafts, tool commands & status updates: ~[Estimate] tokens.
+* **Parallel Subagents / Swarm [if any]:**
+  * Architecture discovery & codebase inspection: ~[Estimate] tokens.
+  * Writing & editing files ([X] files, ~[X] LOC): ~[Estimate] tokens.
+  * Automated testing, audits & adversarial runs: ~[Estimate] tokens.
+* **Total Estimated Token Consumption:** Approximately [Min] to [Max] tokens.
+
+---
+
+### 🌐 2. Realistic Network & Data Transfer:
+
+* **Cumulative Context Over The Wire:**
+  * Streaming context across turns ([X] steps × average step context): ~[X] MB/GB.
+* **Multimodal Assets & Media Transfers:**
+  * High-res images, PDFs, generated assets ([X] media files): ~[X] MB/GB.
+* **Package Downloads & External Dependencies:**
+  * Terminal packages (npm, pip, composer, binaries): ~[X] MB/GB.
+* **Realistic Total Bandwidth Consumed:** ~[X] MB/GB.
+
+---
+
+### ⏱️ 3. Timeline & Effort Distribution:
+
+* **Task Launch & Dispatch:** [Local Start Time]
+* **Completion & Verification (Victory Report):** [End Time]
+* **Net Active Development Time:** ~ [X] minutes/hours (excluding idle periods).
+
+**🔍 Phase Breakdown:**
+* **Discovery & Architecture:** ~ [X] mins
+* **Implementation & Coding:** ~ [X] mins
+* **Audit, Verification & Tests:** ~ [X] mins
+
+---
+
+### 📁 4. Technical Deliverables:
+* **Created & Modified Files:** [List of primary files and LOC]
+* **Automated Test Suites & Typechecks:** [TypeScript / Unit test status and pass rate]
+```
+
+## Calculation Heuristics
+1. **Never quote the single-pass flat text figure alone.** Always provide realistic cumulative wire traffic.
+2. **Formula:** $\text{Wire Traffic} \approx \text{Turn Count} \times \text{Average Step Context Size} + \text{Multimodal Transfer} + \text{Downloads}$.
+3. **Net Active Time:** Isolate genuine active periods from long idle gaps.

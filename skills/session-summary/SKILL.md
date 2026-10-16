@@ -1,20 +1,25 @@
 ---
 name: session-summary
 description: >-
-  Provides a realistic, high-level summary of the entire chat session from its beginning up to the current moment.
+  Provides a realistic, high-level summary of the entire chat session from its beginning up to the current moment
+  in either Arabic or English based on user preference.
   Distinguishes between total calendar span (e.g. 52 days) and actual active workdays / active hours.
   Accurately calculates total tokens, realistic internet/bandwidth consumption
   (factoring in cumulative context re-transmission, multimodal media/images, and package downloads), and key deliverables.
   Trigger whenever the user types `/session-summary`, `/brief-usage`, or asks for an overall summary of the whole chat session.
 ---
 
-# Session Summary & Quick Realistic Usage Skill
+# Session Summary & Quick Realistic Usage Skill (Bilingual: AR / EN)
 
 Use this skill whenever the user types `/session-summary`, `/brief-usage`, or requests a realistic summary of the entire conversation session.
 
-## Guidelines for Generating the Summary
+## Language Selection
+- **Auto-Detection:** If the user's prompt or conversation is primarily Arabic, respond with the **Arabic Template**.
+- If the conversation is in English or the user specifies English (e.g., `/session-summary en`), respond with the **English Template**.
 
-When invoked, the agent should examine the conversation history and transcript (`<appDataDir>\brain\<conversation-id>\.system_generated\logs\transcript.jsonl`) to distinguish between the **calendar span** (days the chat stayed open) and **actual active working days/hours**, avoiding misleading flat-time claims:
+---
+
+## 🇸🇦 1. Arabic Template (النموذج العربي)
 
 ```markdown
 ### ⚡ ملخص الجلسة الشامل والواقعي (Session Overview):
@@ -39,15 +44,34 @@ When invoked, the agent should examine the conversation history and transcript (
 * **حجم ملفات الجلسة على القرص (Brain Footprint):** ~[حجم مجلد الجلسة على الهارد].
 ```
 
-## Calculation Heuristics:
-1. **Active Time vs. Calendar Span:**
-   - **Calendar Span:** Days between the first step timestamp and the current time.
-   - **Active Workdays:** Count the unique dates (`YYYY-MM-DD`) in `transcript.jsonl` where user messages or tool calls took place. If a chat is open for 50 days but messages were only sent across 8 separate days, report "50 calendar days, 8 active workdays".
-   - **Net Active Hours:** Sum durations of active work bursts (grouping steps where the gap between consecutive steps is under 45-60 minutes).
-2. **Never quote the single-pass flat text figure (`tokens * 5 KB`) alone:**
-   - Always report cumulative wire traffic:
-     $$\text{Cumulative Context Wire Traffic} \approx \text{Total Steps} \times \text{Average Step Context Size (in KB)}$$
-3. **Multimodal & Media:**
-   - High-res images, camera raw files, 300 DPI exports, PDFs, and generated images consume ~2 MB - 10 MB per image transferred over API frames.
-4. **Quick Telemetry Inspection:**
-   - The agent can run a quick command on the session brain directory to check real media count, disk size, and transcript timestamps when appropriate.
+---
+
+## 🇬🇧 2. English Template
+
+```markdown
+### ⚡ Realistic Session Overview:
+
+* ⏱️ **Time & Activity Distribution:**
+  * 📅 **Calendar Span:** From [Start Date] to [Today] (~[X] calendar days since chat creation).
+  * 🔨 **Active Workdays:** ~[X] active working days only (days with actual prompts & code modifications).
+  * ⏳ **Net Active Hours:** ~[X] hours of direct active development (excluding idle/offline gaps).
+
+* 🪙 **Total Cumulative Context Tokens:** ~ [X] tokens across all active steps.
+* 🌐 **Realistic Network Traffic (Bandwidth):** ~ [X] MB/GB
+  * 🔄 **Cumulative Context Over The Wire:** [X] steps × average request context = ~[X] MB/GB.
+  * 🖼️ **Multimodal & Media Assets:** ~[X] MB/GB ([X] media files generated or uploaded).
+  * 📦 **Dependencies & Package Downloads:** ~[X] MB/GB (npm / composer / pip / git if applicable).
+* 💬 **Total Executed Operations & Steps:** [Total steps recorded in session].
+
+---
+
+### 📌 Key Accomplishments:
+* **Core Deliverables:** [Concise bullet points summarizing what was built].
+* **Files Affected & Modified:** [File count or key paths].
+* **Session Brain Disk Footprint:** ~[Directory size on disk].
+```
+
+## Calculation Heuristics
+1. **Calendar Span vs Active Days:** Group `transcript.jsonl` step timestamps by unique calendar dates (`YYYY-MM-DD`). Distinguish between calendar lifetime and active days.
+2. **Net Active Hours:** Combine consecutive steps within 45-60 min intervals into active work bursts.
+3. **Cumulative Traffic:** Multiply total steps by average step context payload.

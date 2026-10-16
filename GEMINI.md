@@ -1,38 +1,38 @@
-# Global Agent Rules & Guidelines
+# Global Agent Rules & Guidelines (Bilingual: AR / EN)
 
 ## Slash Command: `/usage` (Detailed Task & Realistic Usage Reporting)
 
 Whenever the user inputs `/usage` or requests a detailed token/context breakdown for a task:
-The agent MUST generate the standardized **Usage & Token Consumption Report** (`usage-report`) covering:
+The agent MUST generate the standardized **Usage & Token Consumption Report** (`usage-report`) in the user's preferred language (Arabic if prompting in Arabic, English otherwise) covering:
 
-1. **تقدير استهلاك التوكنز (Token Consumption):**
-   - المحادثة الرئيسية (Main Context).
-   - فريق الوكلاء المتوازي والعمليات الخلفية (Subagents / Tool outputs).
-   - الإجمالي التقديري للتوكنز.
-2. **تقدير استهلاك الإنترنت الواقعي (Realistic Network & Data Transfer):**
-   - **تجنب الحساب النظري السطحي (الذي يحسب النص لمرة واحدة فقط):** يجب مراعاة النقل التراكمي للسياق عبر كافة الخطوات (Cumulative Wire Transfer = عدد الخطوات × متوسط سياق الطلب).
-   - استهلاك الوسائط المتعددة والصور المولدة/المرفوعة (Multimodal Payloads ~ 2-10 MB لكل صورة).
-   - تنزيلات الحزم والمكتبات عبر الطرفية (npm, pip, composer, binaries).
-   - الإجمالي الواقعي لاستهلاك باقة الإنترنت (بالـ MB أو GB).
-3. **التوقيت وتوزيع الجهد (Timeline & Distribution):**
-   - وقت البداية، وقت الانتهاء، وإجمالي المدة بالدقائق (صافي وقت العمل النشط الفعلي).
-   - توزيع الوقت على المراحل (المسح والمعمارية -> التطوير -> التدقيق والاختبار).
-4. **ملخص الإنجاز الفني (Technical Deliverables):**
-   - الملفات المنشأة أو المعدلة ونتائج الاختبارات.
+1. **Token Consumption Breakdown:**
+   - Main Context (prompts, plans, tool commands).
+   - Parallel Subagents / Swarm (codebase reading, file editing, automated tests).
+   - Total estimated token range.
+2. **Realistic Network & Data Transfer:**
+   - **Avoid flat, single-pass text calculations.** Account for cumulative context streaming over the wire (Total Steps × Average Step Context Size).
+   - Multimodal Assets (high-res images, PDFs, generated media ~2-10 MB each).
+   - Package manager downloads (npm, pip, composer, binaries).
+   - Realistic total bandwidth consumed (MB or GB).
+3. **Timeline & Effort Distribution:**
+   - Start timestamp, end timestamp, and net active development time in minutes/hours.
+   - Phase breakdown (Discovery & Architecture -> Implementation -> Verification & Tests).
+4. **Technical Deliverables:**
+   - Modified and created files, plus automated test suite results.
 
 ---
 
-## Slash Command: `/session-summary` أو `/brief-usage` (Realistic Whole-Chat Overview)
+## Slash Command: `/session-summary` or `/brief-usage` (Realistic Whole-Chat Overview)
 
-Whenever the user inputs `/session-summary`, `/brief-usage`, or asks for a summary of the entire chat from start to finish:
-The agent MUST immediately output a realistic summary card (`session-summary`) covering:
+Whenever the user inputs `/session-summary`, `/brief-usage`, or asks for a summary of the entire chat:
+The agent MUST output a realistic summary card (`session-summary`) in the user's language covering:
 
-1. **التمييز الدقيق بين المدى التقويمي والنشاط الفعلي:**
-   - **المدى التقويمي (Calendar Span):** عدد الأيام منذ إنشاء الشات (مثلاً: "52 يوماً تقويمياً").
-   - **أيام العمل الفعلية (Active Workdays):** عدد الأيام الفريدة التي شهدت إرسال رسائل وتنفيذ مهام برمجية بالفعل (مثلاً: "10 أيام عمل نشطة فقط").
-   - **صافي ساعات العمل المباشرة (Net Active Hours):** استبعاد فترات الخمول والتوقف الطويلة.
-2. **إجمالي التوكنز المتراكمة في الشات:** السياق التراكمي ومخرجات الأدوات المرتبطة بأيام العمل النشطة.
-3. **استهلاك الإنترنت الواقعي والفعلي:**
-   - الحساب التراكمي للخطوات (Cumulative Context Re-transmission) + الصور والوسائط + تنزيلات الحزم (بالـ MB / GB).
-   - يمكن للوكيل فحص مجلد الجلسة (`$brainDir`) للتحقق من الحجم الفعلي للملفات والوسائط على القرص الصلب.
-4. **ملخص الإنجاز السريع:** أهم ما تم إنجازه باختصار شديد في نقاط سريعة.
+1. **Accurate Time Separation:**
+   - **Calendar Span:** Days elapsed since conversation creation (e.g. "52 calendar days").
+   - **Active Workdays:** Count of unique dates with actual coding activities (e.g. "8 active workdays").
+   - **Net Active Hours:** Direct hands-on development time excluding idle gaps.
+2. **Cumulative Token Consumption:** Total context tokens processed across all active steps.
+3. **Realistic Network Bandwidth:**
+   - Cumulative wire transfer + multimodal media payloads + package downloads (in MB/GB).
+   - Inspect the session brain directory (`$brainDir`) for on-disk footprint when appropriate.
+4. **Key Accomplishments:** Concise bullet points highlighting major achievements.

@@ -1,111 +1,133 @@
-# Skills for Google Antigravity 🚀
+# Skills for Google Antigravity 🚀 (Bilingual: English & العربية)
 
-مجموعة مهارات وقواعد متقدمة وعملية لـ **Google Antigravity** لتتبع استهلاك التوكنز، حساب استهلاك باقة الإنترنت الواقعي، وتلخيص جلسات العمل والمهام المعقدة بدقة متناهية.
+A curated collection of practical, production-grade custom skills and guidelines for **Google Antigravity**.  
+Includes smart tracking for token consumption, realistic cumulative network bandwidth, active development time, and high-level session summaries.
 
-A curated collection of practical, production-ready custom skills and guidelines for **Google Antigravity**.
+مجموعة مهارات وقواعد متقدمة وعملية لـ **Google Antigravity** تدعم اللغتين **العربية والإنجليزية** لحساب استهلاك التوكنز، باقة الإنترنت الواقعية، وتلخيص جلسات العمل والمهام بدقة متناهية.
 
 ---
 
-## 📦 المهارات المتضمنة (Included Skills)
+## 🌍 Language Support / دعم اللغات
 
-| المهارة (Skill) | الأمر السريع (Command) | الوظيفة والمميزات (Features) |
+Both skills automatically detect your conversation language:
+* If you chat in **Arabic** (أو تطلب بالعربي), the report is generated in **Arabic**.
+* If you chat in **English** (or specify `/usage en`), the report is generated in **English**.
+
+---
+
+## 📦 Included Skills / المهارات المتضمنة
+
+| Skill / المهارة | Slash Command | Description / الوظيفة |
 | :--- | :--- | :--- |
-| **`usage-report`** | `/usage` | **تقرير تفصيلي لتاسك معين أو مهمة معقدة:**<br>• تقسيم استهلاك التوكنز (المحادثة الرئيسية + فرق الوكلاء المتوازية Swarm).<br>• **استهلاك الإنترنت الواقعي والفعلي** (الحساب التراكمي لتدفق السياق + ترافيك الصور والوسائط + تنزيل الحزم والمكتبات).<br>• **صافي وقت العمل الفعلي** (مع استبعاد فترات التوقف).<br>• ملخص الملفات المنشأة والمعدلة وحزم الاختبارات. |
-| **`session-summary`** | `/session-summary`<br>`/brief-usage` | **ملخص شامل وسريع لكامل المحادثة من بدايتها:**<br>• التمييز الدقيق بين **المدى التقويمي** (مثلاً: الشات مفتوح بقاله 50 يوماً) وبين **أيام العمل الفعلية** (مثلاً: 8 أيام عمل حقيقية).<br>• إجمالي التوكنز التراكمية في الشات كاملاً.<br>• إجمالي باقة الإنترنت المستهلكة فعلياً (بالـ MB أو GB).<br>• ملخص سريع وموجز لأهم الإنجازات وحجم ملفات الجلسة على الهارد. |
+| **`usage-report`** | `/usage`<br>`/usage en` | **Detailed Task & Swarm Breakdown:**<br>• Token partitioning (Main Context vs. Parallel Swarm).<br>• **Realistic Network Traffic** (Cumulative wire context streaming + Multimodal assets + Package downloads).<br>• **Net Active Time** (excluding breaks/idle).<br>• Deliverables & Test Pass Rate. |
+| **`session-summary`** | `/session-summary`<br>`/brief-usage` | **Concise Full-Session Overview:**<br>• **Calendar Span vs. Active Workdays** (e.g. Chat open for 50 days, but only 8 active days).<br>• Cumulative session tokens across active turns.<br>• Realistic total data transfer (MB / GB).<br>• Key deliverables & Brain disk footprint. |
 
 ---
 
-## 💡 لماذا هذه المهارات فريدة ومهمة؟ (The Realistic Traffic Factor)
+## 💡 Why This Matters: The Realistic Traffic Factor
 
-### ⚠️ مشكلة الحساب النظري السطحي (Naive Estimation):
-عند حساب استهلاك الإنترنت بضرب التوكنز في ~5 كيلوبايت لمرة واحدة، قد يُظهر التقرير أن استهلاك الشات "35 ميجابايت"، بينما على أرض الواقع تم استهلاك **40+ جيجابايت** من باقة الإنترنت!
+### ⚠️ The Naive Theoretical Pitfall:
+Standard naive calculations compute text tokens once (`tokens * 5 KB`), reporting e.g. "35 MB", while in reality your actual network usage exceeded **40+ GB**!
 
-### ✅ الحل الواقعي المطبق في هذه المهارات:
-1. **النقل التراكمي للسياق عبر الشبكة (Cumulative Wire Traffic):** في كل خطوة (Step)، يُعاد إرسال تاريخ المحادثة التراكمي بالكامل للسيرفر. فالمهارة تحسب:
-   $$\text{حجم ترافيك الـ API} \approx \text{عدد الخطوات (Steps)} \times \text{متوسط سياق الخطوة}$$
-2. **فصل استهلاك الوسائط والصور (Multimodal Payloads):** كل صورة عالية الدقة أو كرت تصميم يتم رفعه أو توليده يستهلك من 2 إلى 10 ميجابايت لنقل الإطارات عبر الـ API.
-3. **حساب تنزيل الحزم والتبعيات:** رصد عمليات `npm install` و `pip` و `composer` وحزم المعالجة المترجمة (`sharp`, `libvips`).
-4. **فصل وقت الراحة عن وقت العمل:** استبعاد فترات النوم والخمول التي لا تستهلك أي شيء.
+### ✅ How These Skills Calculate Real Usage:
+1. **Cumulative Context Over The Wire:** In agentic workflows, previous context is re-transmitted on **every single step**.
+   $$\text{Wire Traffic} \approx \text{Total Steps} \times \text{Average Step Context Size}$$
+2. **Multimodal Payloads:** Each high-res image, PDF, or graphics card transferred consumes 2 MB – 10 MB per API frame.
+3. **Dependency Downloads:** Tracks actual downloads from `npm install`, `composer`, `pip`, and binary compilation tools.
+4. **Active Time Isolation:** Separates calendar idle time from actual hands-on development hours.
 
 ---
 
-## 🛠️ التثبيت السريع (Quick Installation)
+## 🛠️ Quick Installation / التثبيت السريع
 
-### 🪟 لمستخدمي ويندوز (Windows):
-
-افتح نافذة PowerShell ونفذ الأوامر التالية:
+### 🪟 Windows (PowerShell):
 
 ```powershell
-# 1. استنساخ المستودع
+# 1. Clone repository
 git clone https://github.com/hosamazzam/skills-for-antigravity.git
 cd skills-for-antigravity
 
-# 2. تشغيل سكربت التثبيت التلقائي
+# 2. Run one-click installer
 powershell -ExecutionPolicy Bypass -File install.ps1
 ```
 
-> **ماذا يفعل سكربت التثبيت؟**  
-> يقوم بنسخ مجلدات المهارات تلقائياً إلى المسار العام:  
-> `~/.gemini/config/skills/`  
-> وإضافة القواعد العالمية لملف:  
-> `~/.gemini/config/GEMINI.md`
-
 ---
 
-### 🍏 / 🐧 لمستخدمي Mac و Linux:
+### 🍏 / 🐧 macOS & Linux:
 
 ```bash
-# 1. استنساخ المستودع
+# 1. Clone repository
 git clone https://github.com/hosamazzam/skills-for-antigravity.git
 cd skills-for-antigravity
 
-# 2. تشغيل سكربت التثبيت
+# 2. Run installer
 bash install.sh
 ```
 
 ---
 
-### ⚙️ التثبيت اليدوي (Manual Installation):
+## 🚀 Usage Examples / أمثلة الاستخدام
 
-إذا كنت تفضل النسخ اليدوي:
-1. انسخ مجلدات المهارات من `skills/*` إلى المسار:
-   * **Windows:** `C:\Users\<YourUser>\.gemini\config\skills\`
-   * **Mac/Linux:** `~/.gemini/config/skills/`
-2. انسخ محتوى ملف `GEMINI.md` إلى ملف `~/.gemini/config/GEMINI.md` على جهازك لتفعيل أوامر الـ Slash تلقائياً.
+### In English:
+Type in your chat:
+```text
+/usage
+```
+*Output:*
+```markdown
+### 📊 1. Token Consumption Breakdown:
+* Main Context: ~24,000 tokens.
+* Parallel Subagents (Swarm): ~420,000 tokens across 12 files.
+* Total Estimated: ~444,000 tokens.
 
----
+### 🌐 2. Realistic Network & Data Transfer:
+* Cumulative Context Over The Wire: 95 steps × ~45 KB = ~4.2 MB streaming.
+* Multimodal Assets (8 high-res images): ~32 MB.
+* Total Bandwidth Consumed: ~36.2 MB.
 
-## 🔄 كيفية التحديث مستقبلاً (Updating Skills)
-
-عند إضافة مهارات جديدة أو تحديث المهارات الحالية، يكفي أن تدخل لمجلد المستودع وتشغل:
-
-```bash
-git pull
-# ثم أعد تشغيل سكربت التثبيت:
-powershell -ExecutionPolicy Bypass -File install.ps1   # (Windows)
-# أو
-bash install.sh                                        # (Mac/Linux)
+### ⏱️ 3. Timeline & Effort Distribution:
+* Net Active Development Time: ~ 42 minutes (excluding breaks).
 ```
 
 ---
 
-## 🚀 كيفية الاستخدام داخل Antigravity
+### بالعربية:
+اكتب في الشات:
+```text
+/usage
+```
+*المخرجات:*
+```markdown
+### 📊 1. تقدير استهلاك التوكنز:
+* في المحادثة الرئيسية: ~24,000 توكن.
+* فريق الوكلاء المتوازي: ~420,000 توكن عبر 12 ملفاً.
+* التقدير الإجمالي: ~444,000 توكن.
 
-في أي محادثة أو مشروع، اكتب فقط في الشات:
-
-* **`/usage`** ⬅️ للحصول على تقرير تفصيلي عن آخر تاسك، استهلاك التوكنز، استهلاك باقة الإنترنت الواقعي، وصافي وقت التطوير.
-* **`/session-summary`** أو **`/brief-usage`** ⬅️ للحصول على كارت ملخص سريع وشامل لكامل المحادثة من أول يوم بدأ فيه الشات.
+### 🌐 2. تقدير استهلاك الإنترنت الواقعي:
+* تدفق السياق التراكمي: 95 خطوة × ~45 كيلوبايت = ~4.2 ميجابايت.
+* الوسائط المتعددة (8 صور عالية الدقة): ~32 ميجابايت.
+* الإجمالي الواقعي لاستهلاك باقة الإنترنت: ~36.2 ميجابايت.
+```
 
 ---
 
-## 🤝 المساهمة (Contributing)
+## 🔄 Updating / التحديث مستقبلاً
 
-إذا قمت بابتكار مهارة جديدة لـ Antigravity وتريد إضافتها:
-1. أنشئ مجلداً جديداً داخل `skills/<skill-name>`.
-2. ضع بداخله ملف `SKILL.md` مع الـ YAML Frontmatter المطلوب.
-3. أرسل **Pull Request** وسيتم دمجها ليستفيد منها الجميع!
+To pull latest improvements and new skills:
+```bash
+git pull
+powershell -ExecutionPolicy Bypass -File install.ps1   # Windows
+# or
+bash install.sh                                        # macOS / Linux
+```
 
 ---
 
-## 📄 الترخيص (License)
-هذا المشروع مرخص تحت رخصة [MIT License](LICENSE).
+## 🤝 Contributing / المساهمة
+
+Contributions are warmly welcomed! Feel free to submit issues or pull requests with new Antigravity skills.
+
+---
+
+## 📄 License
+This project is licensed under the [MIT License](LICENSE).
